@@ -75,21 +75,18 @@ fun AddEditExpenseScreen(
     val state by viewModel.state.collectAsState()
     val snackbarHostState = remember { SnackbarHostState() }
     
-    // Load expense if in edit mode
     LaunchedEffect(expenseId) {
         if (expenseId != -1L) {
             viewModel.onEvent(AddEditExpenseEvent.LoadExpense(expenseId))
         }
     }
     
-    // Show error message in snackbar if there is an error
     LaunchedEffect(state.error) {
         state.error?.let { error ->
             snackbarHostState.showSnackbar(error)
         }
     }
     
-    // Navigate back if the expense is saved
     LaunchedEffect(state.isSaved) {
         if (state.isSaved) {
             onNavigateBack()
@@ -160,7 +157,6 @@ fun ExpenseForm(
             .verticalScroll(scrollState),
         verticalArrangement = Arrangement.spacedBy(16.dp)
     ) {
-        // Title field
         OutlinedTextField(
             value = state.title,
             onValueChange = { onEvent(AddEditExpenseEvent.TitleChanged(it)) },
@@ -170,7 +166,6 @@ fun ExpenseForm(
             modifier = Modifier.fillMaxWidth()
         )
         
-        // Amount field
         OutlinedTextField(
             value = state.amount,
             onValueChange = { onEvent(AddEditExpenseEvent.AmountChanged(it)) },
@@ -181,7 +176,6 @@ fun ExpenseForm(
             modifier = Modifier.fillMaxWidth()
         )
         
-        // Category field with dropdown
         CategoryDropdown(
             selectedCategory = state.category,
             categories = state.categories,
@@ -190,14 +184,12 @@ fun ExpenseForm(
             modifier = Modifier.fillMaxWidth()
         )
         
-        // Date picker
         DatePicker(
             date = state.timestamp,
             onDateSelected = { onEvent(AddEditExpenseEvent.DateChanged(it)) },
             modifier = Modifier.fillMaxWidth()
         )
         
-        // Description field
         OutlinedTextField(
             value = state.description,
             onValueChange = { onEvent(AddEditExpenseEvent.DescriptionChanged(it)) },
@@ -208,7 +200,6 @@ fun ExpenseForm(
         
         Spacer(modifier = Modifier.height(16.dp))
         
-        // Save button
         Button(
             onClick = { onEvent(AddEditExpenseEvent.SaveExpense) },
             modifier = Modifier.fillMaxWidth()
@@ -238,10 +229,6 @@ fun CategoryDropdown(
 ) {
     var expanded by remember { mutableStateOf(false) }
     val interactionSource = remember { MutableInteractionSource() }
-    
-    Log.d("ExpenseTracker", "Categories in dropdown: $categories")
-    Log.d("ExpenseTracker", "Selected category: $selectedCategory")
-    Log.d("ExpenseTracker", "Expanded state: $expanded")
 
     Box(modifier = modifier) {
         OutlinedTextField(
@@ -272,18 +259,20 @@ fun CategoryDropdown(
             onDismissRequest = { expanded = false },
             modifier = Modifier
                 .fillMaxWidth()
-                .background(MaterialTheme.colorScheme.surface)
+                .background(
+                    color = MaterialTheme.colorScheme.surface,
+                    shape = MaterialTheme.shapes.medium
+                )
         ) {
             categories.forEach { category ->
                 DropdownMenuItem(
-                    text = { 
+                    text = {
                         Text(
                             text = category,
                             style = MaterialTheme.typography.bodyLarge
-                        ) 
+                        )
                     },
                     onClick = {
-                        Log.d("ExpenseTracker", "Category selected: $category")
                         onCategorySelected(category)
                         expanded = false
                     },
@@ -293,6 +282,7 @@ fun CategoryDropdown(
         }
     }
 }
+
 
 /**
  * Composable for the date picker.
