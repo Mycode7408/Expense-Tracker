@@ -3,6 +3,14 @@
 A modern Android expense tracking application built with Jetpack Compose and Material Design 3, following clean architecture principles and best practices.
 
 
+<p align="center">
+  <img src="https://drive.google.com/file/d/1nH53zb5_oWoFx3pON3hpO4Yx46US-0-Y/view?usp=sharing" alt="Expense List Screen" width="300px">
+  <img src="https://drive.google.com/file/d/1oD745obg4Gv0GQIGgToaq-5L25-oQwcq/view?usp=drive_link" alt="Add/Edit Expense Screen" width="300px">
+  <img src="https://drive.google.com/file/d/1h6sPI0AOYh3noHzYkWQtj9ZHMA2-g8co/view?usp=drive_link" alt="Category Filter" width="300px">
+  <img src="https://drive.google.com/file/d/1_FtbnBOibxCx-f1cOyDvPyQ4N9MGlrZb/view?usp=drive_link" alt="Category Filter" width="300px">
+  <img src="https://drive.google.com/file/d/1dlcHSyWOgDmAZ6UVcffQxQuP7ho5_-HP/view?usp=drive_link" alt="Category Filter" width="300px">
+  </p>
+
 ## Features 🚀
 
 - **Material Design 3**: Modern UI with dynamic color theming and beautiful animations
