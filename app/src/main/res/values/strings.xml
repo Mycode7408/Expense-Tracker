@@ -1,0 +1,47 @@
+<resources>
+    <string name="app_name">Expense Tracker</string>
+    
+    <!-- Navigation -->    
+    <string name="expense_list_screen">Expenses</string>
+    <string name="add_expense_screen">Add Expense</string>
+    <string name="edit_expense_screen">Edit Expense</string>
+    
+    <!-- Expense List Screen -->    
+    <string name="add_new_expense">Add New Expense</string>
+    <string name="no_expenses_found">No expenses found</string>
+    <string name="all_categories">All</string>
+    <string name="delete_expense">Delete Expense</string>
+    <string name="edit_expense">Edit Expense</string>
+    <string name="total_expenses">Total Expenses</string>
+    <string name="total_for_category">Total for %1$s</string>
+    <string name="expense_count">%1$d expenses</string>
+    
+    <!-- Add/Edit Expense Screen -->    
+    <string name="expense_title">Title</string>
+    <string name="expense_amount">Amount</string>
+    <string name="expense_category">Category</string>
+    <string name="expense_date">Date</string>
+    <string name="expense_description">Description (Optional)</string>
+    <string name="save_expense">Save</string>
+    <string name="add_category">Add Category</string>
+    <string name="select_category">Select Category</string>
+    <string name="new_category">New Category</string>
+    <string name="enter_category_name">Enter category name</string>
+    
+    <!-- Validation Errors -->    
+    <string name="error_title_empty">Title cannot be empty</string>
+    <string name="error_amount_empty">Amount cannot be empty</string>
+    <string name="error_amount_invalid">Please enter a valid amount</string>
+    <string name="error_category_empty">Please select a category</string>
+    
+    <!-- Default Categories -->    
+    <string name="category_food">Food</string>
+    <string name="category_transportation">Transportation</string>
+    <string name="category_entertainment">Entertainment</string>
+    <string name="category_shopping">Shopping</string>
+    <string name="category_utilities">Utilities</string>
+    <string name="category_health">Health</string>
+    <string name="category_education">Education</string>
+    <string name="category_travel">Travel</string>
+    <string name="category_other">Other</string>
+</resources>
