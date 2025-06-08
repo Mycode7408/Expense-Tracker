@@ -8,7 +8,6 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
@@ -26,11 +25,15 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import com.mahmood.expensetracker.domain.model.Expense
 import com.mahmood.expensetracker.presentation.util.CategoryColorUtil
-import com.mahmood.expensetracker.presentation.util.FormatUtils
+import com.mahmood.expensetracker.presentation.util.CategoryIconUtil
+import java.text.SimpleDateFormat
+import java.util.Locale
 
 /**
  * Composable for displaying an expense item in a list.
@@ -61,13 +64,21 @@ fun ExpenseItem(
             verticalAlignment = Alignment.CenterVertically,
             horizontalArrangement = Arrangement.SpaceBetween
         ) {
-            // Category color indicator
+            // Category icon with colored background
             Box(
                 modifier = Modifier
                     .size(40.dp)
                     .clip(CircleShape)
-                    .background(CategoryColorUtil.getCategoryColor(expense.category))
-            )
+                    .background(CategoryColorUtil.getCategoryColor(expense.category)),
+                contentAlignment = Alignment.Center
+            ) {
+                Icon(
+                    imageVector = CategoryIconUtil.getCategoryIcon(expense.category),
+                    contentDescription = "${expense.category} category icon",
+                    tint = Color.White,
+                    modifier = Modifier.size(24.dp)
+                )
+            }
             
             Spacer(modifier = Modifier.width(16.dp))
             
@@ -78,11 +89,10 @@ fun ExpenseItem(
                 Text(
                     text = expense.title,
                     style = MaterialTheme.typography.titleMedium,
+                    fontWeight = FontWeight.SemiBold,
                     maxLines = 1,
                     overflow = TextOverflow.Ellipsis
                 )
-                
-                Spacer(modifier = Modifier.height(4.dp))
                 
                 Text(
                     text = expense.category,
@@ -90,10 +100,19 @@ fun ExpenseItem(
                     color = MaterialTheme.colorScheme.onSurfaceVariant
                 )
                 
-                Spacer(modifier = Modifier.height(4.dp))
+                if (expense.description?.isNotBlank() == true) {
+                    Text(
+                        text = expense.description,
+                        style = MaterialTheme.typography.bodySmall,
+                        color = MaterialTheme.colorScheme.onSurfaceVariant,
+                        maxLines = 2,
+                        overflow = TextOverflow.Ellipsis
+                    )
+                }
                 
                 Text(
-                    text = FormatUtils.formatDate(expense.timestamp),
+                    text = SimpleDateFormat("MMM dd, yyyy", Locale.getDefault())
+                        .format(expense.timestamp),
                     style = MaterialTheme.typography.bodySmall,
                     color = MaterialTheme.colorScheme.onSurfaceVariant
                 )
@@ -106,20 +125,18 @@ fun ExpenseItem(
                 horizontalAlignment = Alignment.End
             ) {
                 Text(
-                    text = FormatUtils.formatCurrency(expense.amount),
+                    text = "₹%.2f".format(expense.amount),
                     style = MaterialTheme.typography.titleMedium,
+                    fontWeight = FontWeight.Bold,
                     color = MaterialTheme.colorScheme.primary
                 )
                 
-                Spacer(modifier = Modifier.height(8.dp))
-                
                 IconButton(
-                    onClick = { onDeleteClick(expense) },
-                    modifier = Modifier.size(24.dp)
+                    onClick = { onDeleteClick(expense) }
                 ) {
                     Icon(
                         imageVector = Icons.Default.Delete,
-                        contentDescription = "Delete Expense",
+                        contentDescription = "Delete expense",
                         tint = MaterialTheme.colorScheme.error
                     )
                 }
