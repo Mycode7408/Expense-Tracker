@@ -3,11 +3,27 @@
 A modern Android expense tracking application built with Jetpack Compose and Material Design 3, following clean architecture principles and best practices.
 
 
-![Screenshot_20250609_014536.jpg](..%2F..%2FDownloads%2Fattachments%2FScreenshot_20250609_014536.jpg)
-![Screenshot_20250609_014542.jpg](..%2F..%2FDownloads%2Fattachments%2FScreenshot_20250609_014542.jpg)
-![Screenshot_20250609_014551.jpg](..%2F..%2FDownloads%2Fattachments%2FScreenshot_20250609_014551.jpg)
-![Screenshot_20250609_014603.jpg](..%2F..%2FDownloads%2Fattachments%2FScreenshot_20250609_014603.jpg)
-![Screenshot_20250609_014613.jpg](..%2F..%2FDownloads%2Fattachments%2FScreenshot_20250609_014613.jpg)
+Experience the intuitive design and functionality of Expense Tracker:
+
+### Expense List View
+![Expense List Screen](screenshots/Screenshot_20250609_014536.jpg)
+*A clear overview of all your recorded expenses, easily scannable.*
+
+### Add/Edit Expense Form
+![Add Edit Expense Screen](screenshots/Screenshot_20250609_014542.jpg)
+*Quickly add new expenses or modify existing ones with our streamlined form.*
+
+### Category Filtering
+![Category Filter Selection](screenshots/Screenshot_20250609_014551.jpg)
+*Efficiently filter your expenses by various categories.*
+
+### Expense Summary
+![Expense Summary Overview](screenshots/Screenshot_20250609_014603.jpg)
+*Get a quick summary of your spending, broken down by category.*
+
+### Empty State & More
+![Empty State and Floating Action Button](screenshots/Screenshot_20250609_014613.jpg)
+*A friendly empty state message, guiding you to add your first expense.*
 
 ## Features 🚀
 
