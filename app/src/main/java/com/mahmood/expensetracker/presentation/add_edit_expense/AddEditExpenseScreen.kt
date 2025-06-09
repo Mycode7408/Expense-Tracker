@@ -1,13 +1,11 @@
 package com.mahmood.expensetracker.presentation.add_edit_expense
 
-import android.util.Log
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -31,6 +29,7 @@ import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.OutlinedTextField
+import androidx.compose.material3.OutlinedTextFieldDefaults
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.SnackbarHost
 import androidx.compose.material3.SnackbarHostState
@@ -52,9 +51,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
-import com.mahmood.expensetracker.presentation.util.FormatUtils
 import java.text.SimpleDateFormat
-import java.util.Calendar
 import java.util.Date
 import java.util.Locale
 
@@ -132,6 +129,38 @@ fun AddEditExpenseScreen(
     }
 }
 
+@Composable
+private fun CustomOutlinedTextField(
+    value: String,
+    onValueChange: (String) -> Unit,
+    label: String,
+    modifier: Modifier = Modifier,
+    isError: Boolean = false,
+    errorMessage: String? = null,
+    keyboardOptions: KeyboardOptions = KeyboardOptions.Default,
+    readOnly: Boolean = false,
+    trailingIcon: @Composable (() -> Unit)? = null,
+    minLines: Int = 1
+) {
+    OutlinedTextField(
+        value = value,
+        onValueChange = onValueChange,
+        label = { Text(label) },
+        modifier = modifier,
+        isError = isError,
+        supportingText = { errorMessage?.let { Text(it) } },
+        keyboardOptions = keyboardOptions,
+        readOnly = readOnly,
+        trailingIcon = trailingIcon,
+        minLines = minLines,
+        shape = MaterialTheme.shapes.medium,
+        colors = OutlinedTextFieldDefaults.colors(
+            focusedBorderColor = MaterialTheme.colorScheme.primary.copy(alpha = 0.5f),
+            unfocusedBorderColor = MaterialTheme.colorScheme.primary.copy(alpha = 0.5f)
+        )
+    )
+}
+
 /**
  * Composable for the expense form.
  */
@@ -149,21 +178,21 @@ fun ExpenseForm(
             .verticalScroll(scrollState),
         verticalArrangement = Arrangement.spacedBy(16.dp)
     ) {
-        OutlinedTextField(
+        CustomOutlinedTextField(
             value = state.title,
             onValueChange = { onEvent(AddEditExpenseEvent.TitleChanged(it)) },
-            label = { Text("Title") },
+            label = "Title",
             isError = state.titleError != null,
-            supportingText = { state.titleError?.let { Text(it) } },
+            errorMessage = state.titleError,
             modifier = Modifier.fillMaxWidth()
         )
         
-        OutlinedTextField(
+        CustomOutlinedTextField(
             value = state.amount,
             onValueChange = { onEvent(AddEditExpenseEvent.AmountChanged(it)) },
-            label = { Text("Amount") },
+            label = "Amount",
             isError = state.amountError != null,
-            supportingText = { state.amountError?.let { Text(it) } },
+            errorMessage = state.amountError,
             keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Decimal),
             modifier = Modifier.fillMaxWidth()
         )
@@ -182,10 +211,10 @@ fun ExpenseForm(
             modifier = Modifier.fillMaxWidth()
         )
         
-        OutlinedTextField(
+        CustomOutlinedTextField(
             value = state.description,
             onValueChange = { onEvent(AddEditExpenseEvent.DescriptionChanged(it)) },
-            label = { Text("Description (Optional)") },
+            label = "Description (Optional)",
             modifier = Modifier.fillMaxWidth(),
             minLines = 3
         )
@@ -217,10 +246,10 @@ fun CategoryDropdown(
     val interactionSource = remember { MutableInteractionSource() }
 
     Box(modifier = modifier) {
-        OutlinedTextField(
+        CustomOutlinedTextField(
             value = selectedCategory,
             onValueChange = {},
-            label = { Text("Category") },
+            label = "Category",
             readOnly = true,
             trailingIcon = {
                 IconButton(onClick = { expanded = !expanded }) {
@@ -237,14 +266,14 @@ fun CategoryDropdown(
                     indication = null
                 ) { expanded = true },
             isError = error != null,
-            supportingText = { error?.let { Text(it) } }
+            errorMessage = error
         )
 
         DropdownMenu(
             expanded = expanded,
             onDismissRequest = { expanded = false },
             modifier = Modifier
-                .fillMaxWidth()
+                .fillMaxWidth(0.9f) // Take 90% of the parent width
                 .background(
                     color = MaterialTheme.colorScheme.surface,
                     shape = MaterialTheme.shapes.medium
@@ -255,20 +284,22 @@ fun CategoryDropdown(
                     text = {
                         Text(
                             text = category,
-                            style = MaterialTheme.typography.bodyLarge
+                            style = MaterialTheme.typography.bodyLarge,
+                            color = MaterialTheme.colorScheme.onSurface
                         )
                     },
                     onClick = {
                         onCategorySelected(category)
                         expanded = false
                     },
-                    modifier = Modifier.fillMaxWidth()
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .padding(horizontal = 16.dp, vertical = 8.dp)
                 )
             }
         }
     }
 }
-
 
 /**
  * Composable for the date picker.
@@ -284,10 +315,10 @@ fun DatePicker(
     val dateFormatter = remember { SimpleDateFormat("MMM dd, yyyy", Locale.getDefault()) }
 
     Box(modifier = modifier) {
-        OutlinedTextField(
+        CustomOutlinedTextField(
             value = dateFormatter.format(date),
             onValueChange = {},
-            label = { Text("Date") },
+            label = "Date",
             readOnly = true,
             trailingIcon = {
                 IconButton(onClick = { showDialog = true }) {
