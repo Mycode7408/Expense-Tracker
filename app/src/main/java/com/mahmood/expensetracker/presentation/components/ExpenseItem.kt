@@ -37,11 +37,6 @@ import java.util.Locale
 
 /**
  * Composable for displaying an expense item in a list.
- *
- * @param expense The expense to display.
- * @param onExpenseClick Callback for when the expense is clicked.
- * @param onDeleteClick Callback for when the delete button is clicked.
- * @param modifier The modifier for the expense item.
  */
 @Composable
 fun ExpenseItem(

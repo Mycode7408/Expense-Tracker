@@ -35,11 +35,7 @@ class AddEditExpenseViewModel @Inject constructor(
         onEvent(AddEditExpenseEvent.LoadCategories)
     }
     
-    /**
-     * Handles events for the add/edit expense screen.
-     *
-     * @param event The event to handle.
-     */
+
     fun onEvent(event: AddEditExpenseEvent) {
         when (event) {
             is AddEditExpenseEvent.LoadExpense -> {

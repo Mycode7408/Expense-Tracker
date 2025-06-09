@@ -46,10 +46,6 @@ import com.mahmood.expensetracker.presentation.components.ExpenseSummaryCard // 
 
 /**
  * Composable for the expense list screen.
- *
- * @param onNavigateToAddExpense Callback for navigating to the add expense screen.
- * @param onNavigateToEditExpense Callback for navigating to the edit expense screen.
- * @param viewModel The view model for the expense list screen.
  */
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -60,28 +56,26 @@ fun ExpenseListScreen(
 ) {
     val state by viewModel.state.collectAsState()
     val snackbarHostState = remember { SnackbarHostState() }
-    
-    // Load expenses and categories when the screen is first displayed
+
     LaunchedEffect(Unit) {
         viewModel.onEvent(ExpenseListEvent.LoadExpenses)
         viewModel.onEvent(ExpenseListEvent.LoadCategories)
     }
-    
-    // Show error message in snackbar if there is an error
+
     LaunchedEffect(state.error) {
         state.error?.let { error ->
             snackbarHostState.showSnackbar(error)
         }
     }
-    
+
     Scaffold(
         topBar = {
             TopAppBar(
                 title = {
                     Text(
                         text = "Expense Tracker",
-                        style = MaterialTheme.typography.headlineSmall, // Elevated title size
-                        fontWeight = FontWeight.Bold // Make it bold for prominence
+                        style = MaterialTheme.typography.headlineSmall,
+                        fontWeight = FontWeight.Bold
                     )
                 },
                 colors = TopAppBarDefaults.topAppBarColors(
@@ -93,12 +87,12 @@ fun ExpenseListScreen(
         floatingActionButton = {
             FloatingActionButton(
                 onClick = onNavigateToAddExpense,
-                containerColor = MaterialTheme.colorScheme.primary, // Using primary for consistency
-                contentColor = MaterialTheme.colorScheme.onPrimary // Icon color on primary
+                containerColor = MaterialTheme.colorScheme.primary,
+                contentColor = MaterialTheme.colorScheme.onPrimary
             ) {
                 Icon(
                     imageVector = Icons.Default.Add,
-                    contentDescription = "Add New Expense" // More descriptive content description
+                    contentDescription = "Add New Expense"
                 )
             }
         },
@@ -108,19 +102,19 @@ fun ExpenseListScreen(
             modifier = Modifier
                 .fillMaxSize()
                 .padding(paddingValues)
-                .background(MaterialTheme.colorScheme.background) // Ensure background is themed
+                .background(MaterialTheme.colorScheme.background)
         ) {
             if (state.isLoading) {
                 CircularProgressIndicator(modifier = Modifier.align(Alignment.Center))
             } else if (state.expenses.isEmpty()) {
-                // Show empty state
+
                 EmptyExpenseListState()
             } else {
-                // Show expense list with filter and summary
+
                 Column(
                     modifier = Modifier
                         .fillMaxSize()
-                        .padding(horizontal = 16.dp) // Consistent horizontal padding
+                        .padding(horizontal = 16.dp)
                 ) {
                     // Category filter
                     if (state.categories.isNotEmpty()) {
@@ -131,19 +125,17 @@ fun ExpenseListScreen(
                                 viewModel.onEvent(ExpenseListEvent.FilterByCategory(category))
                             }
                         )
-                        Spacer(modifier = Modifier.height(16.dp)) // Spacing after filter
+                        Spacer(modifier = Modifier.height(16.dp))
                     }
 
-                    // Expense summary
                     ExpenseSummaryCard(
                         expenses = state.expenses,
                         selectedCategory = state.selectedCategory,
-                        modifier = Modifier.fillMaxWidth() // Ensure it fills width
+                        modifier = Modifier.fillMaxWidth()
                     )
 
-                    Spacer(modifier = Modifier.height(16.dp)) // Spacing after summary
+                    Spacer(modifier = Modifier.height(16.dp))
 
-                    // Expense list
                     ExpenseList(
                         expenses = state.expenses,
                         onEditExpense = { expenseId ->
@@ -158,7 +150,6 @@ fun ExpenseListScreen(
         }
     }
 }
-
 
 
 /**
@@ -179,9 +170,9 @@ private fun EmptyExpenseListState() {
             modifier = Modifier.size(120.dp),
             tint = MaterialTheme.colorScheme.primary.copy(alpha = 0.6f)
         )
-        
+
         Spacer(modifier = Modifier.height(24.dp))
-        
+
         Text(
             text = "No expenses yet!",
             style = MaterialTheme.typography.headlineSmall,
@@ -189,9 +180,9 @@ private fun EmptyExpenseListState() {
             textAlign = TextAlign.Center,
             color = MaterialTheme.colorScheme.onSurface
         )
-        
+
         Spacer(modifier = Modifier.height(8.dp))
-        
+
         Text(
             text = "Tap the '+' button to add your first expense and start tracking.",
             style = MaterialTheme.typography.bodyLarge,
@@ -202,13 +193,8 @@ private fun EmptyExpenseListState() {
 }
 
 
-
 /**
  * Composable for the category filter section.
- *
- * @param categories The list of categories.
- * @param selectedCategory The currently selected category.
- * @param onCategorySelected Callback for when a category is selected.
  */
 @Composable
 fun CategoryFilterSection(
@@ -219,11 +205,11 @@ fun CategoryFilterSection(
     Column(
         modifier = Modifier
             .fillMaxWidth()
-            .padding(top = 16.dp) // Add padding to the top of the filter section
+            .padding(top = 16.dp)
     ) {
         Text(
             text = "Filter by Category",
-            style = MaterialTheme.typography.titleMedium, // Elevated text style
+            style = MaterialTheme.typography.titleMedium,
             color = MaterialTheme.colorScheme.onSurface
         )
 
@@ -231,7 +217,7 @@ fun CategoryFilterSection(
 
         LazyRow(
             horizontalArrangement = Arrangement.spacedBy(8.dp),
-            contentPadding = PaddingValues(horizontal = 0.dp) // Ensure padding is controlled by parent Column
+            contentPadding = PaddingValues(horizontal = 0.dp)
         ) {
             // All categories chip
             item {
@@ -255,13 +241,8 @@ fun CategoryFilterSection(
 }
 
 
-
 /**
  * Composable for the expense list.
- *
- * @param expenses The list of expenses.
- * @param onEditExpense Callback for when an expense is edited.
- * @param onDeleteExpense Callback for when an expense is deleted.
  */
 @Composable
 fun ExpenseList(
@@ -270,8 +251,8 @@ fun ExpenseList(
     onDeleteExpense: (Expense) -> Unit
 ) {
     LazyColumn(
-        verticalArrangement = Arrangement.spacedBy(10.dp), // Slightly increased spacing between items
-        contentPadding = PaddingValues(bottom = 80.dp) // Add sufficient padding for FAB to not obscure last item
+        verticalArrangement = Arrangement.spacedBy(10.dp),
+        contentPadding = PaddingValues(bottom = 80.dp)
     ) {
         items(expenses) { expense ->
             ExpenseItem(

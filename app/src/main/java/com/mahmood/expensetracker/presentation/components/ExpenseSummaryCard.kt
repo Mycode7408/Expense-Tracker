@@ -21,10 +21,6 @@ import com.mahmood.expensetracker.presentation.util.FormatUtils
 
 /**
  * Composable for displaying a summary card with total expenses.
- *
- * @param expenses The list of expenses to summarize.
- * @param selectedCategory The currently selected category filter, or null if all categories are shown.
- * @param modifier The modifier for the summary card.
  */
 @Composable
 fun ExpenseSummaryCard(

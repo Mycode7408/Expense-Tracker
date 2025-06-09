@@ -15,12 +15,7 @@ import com.mahmood.expensetracker.ui.theme.Transport
  */
 object CategoryColorUtil {
     
-    /**
-     * Get a color for a category.
-     *
-     * @param category The expense category.
-     * @return The color associated with the category.
-     */
+
     fun getCategoryColor(category: String): Color {
         return when (category.lowercase()) {
             "food" -> Food
@@ -36,8 +31,6 @@ object CategoryColorUtil {
     
     /**
      * Get a list of predefined categories.
-     *
-     * @return A list of predefined expense categories.
      */
     fun getDefaultCategories(): List<String> {
         return listOf(

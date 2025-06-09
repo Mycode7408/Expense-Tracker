@@ -24,11 +24,6 @@ import com.mahmood.expensetracker.presentation.util.CategoryIconUtil
 
 /**
  * Composable for displaying a category chip in the filter section.
- *
- * @param category The category name.
- * @param isSelected Whether the category is selected.
- * @param onClick Callback for when the chip is clicked.
- * @param modifier The modifier for the chip.
  */
 @Composable
 fun CategoryChip(
@@ -41,7 +36,7 @@ fun CategoryChip(
     val backgroundColor = if (isSelected) categoryColor else Color.Transparent
     val contentColor = if (isSelected) Color.White else MaterialTheme.colorScheme.onSurface
     val borderColor = if (isSelected) categoryColor else MaterialTheme.colorScheme.outline
-    
+
     Box(
         modifier = modifier
             .clip(RoundedCornerShape(16.dp))

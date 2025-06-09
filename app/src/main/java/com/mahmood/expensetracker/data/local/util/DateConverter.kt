@@ -10,9 +10,6 @@ class DateConverter {
     
     /**
      * Converts a timestamp (Long) to a Date object.
-     *
-     * @param value The timestamp in milliseconds.
-     * @return The Date object, or null if the timestamp is null.
      */
     @TypeConverter
     fun fromTimestamp(value: Long?): Date? {
@@ -21,9 +18,6 @@ class DateConverter {
     
     /**
      * Converts a Date object to a timestamp (Long).
-     *
-     * @param date The Date object.
-     * @return The timestamp in milliseconds, or null if the Date is null.
      */
     @TypeConverter
     fun dateToTimestamp(date: Date?): Long? {

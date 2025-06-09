@@ -60,10 +60,6 @@ import java.util.Locale
 
 /**
  * Composable for the add/edit expense screen.
- *
- * @param expenseId The ID of the expense to edit, or -1 for adding a new expense.
- * @param onNavigateBack Callback for navigating back to the previous screen.
- * @param viewModel The view model for the add/edit expense screen.
  */
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -138,10 +134,6 @@ fun AddEditExpenseScreen(
 
 /**
  * Composable for the expense form.
- *
- * @param state The state of the add/edit expense screen.
- * @param onEvent Callback for handling events.
- * @param modifier The modifier for the form.
  */
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -211,12 +203,6 @@ fun ExpenseForm(
 
 /**
  * Composable for the category dropdown.
- *
- * @param selectedCategory The currently selected category.
- * @param categories The list of available categories.
- * @param onCategorySelected Callback for when a category is selected.
- * @param error The error message for the category field.
- * @param modifier The modifier for the dropdown.
  */
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -286,10 +272,6 @@ fun CategoryDropdown(
 
 /**
  * Composable for the date picker.
- *
- * @param date The currently selected date.
- * @param onDateSelected Callback for when a date is selected.
- * @param modifier The modifier for the date picker.
  */
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable

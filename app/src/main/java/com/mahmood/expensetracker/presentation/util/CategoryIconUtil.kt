@@ -16,12 +16,7 @@ import androidx.compose.ui.graphics.vector.ImageVector
  */
 object CategoryIconUtil {
     
-    /**
-     * Get an icon for a category.
-     *
-     * @param category The expense category.
-     * @return The icon associated with the category.
-     */
+
     fun getCategoryIcon(category: String): ImageVector {
         return when (category.lowercase()) {
             "food" -> Icons.Filled.Fastfood

@@ -29,9 +29,6 @@ object RepositoryModule {
     
     /**
      * Provides the expense repository implementation.
-     *
-     * @param repositoryImpl The expense repository implementation.
-     * @return The expense repository.
      */
     @Provides
     @Singleton
