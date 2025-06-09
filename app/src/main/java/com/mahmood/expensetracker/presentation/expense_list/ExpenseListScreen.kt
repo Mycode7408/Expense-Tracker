@@ -163,7 +163,7 @@ fun ExpenseListScreen(
  * Composable for the empty state of the expense list.
  */
 @Composable
-private fun EmptyExpenseListState() {
+fun EmptyExpenseListState() {
     Column(
         modifier = Modifier
             .fillMaxSize()
