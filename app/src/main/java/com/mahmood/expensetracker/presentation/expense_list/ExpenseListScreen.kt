@@ -106,17 +106,13 @@ fun ExpenseListScreen(
         ) {
             if (state.isLoading) {
                 CircularProgressIndicator(modifier = Modifier.align(Alignment.Center))
-            } else if (state.expenses.isEmpty()) {
-
-                EmptyExpenseListState()
             } else {
-
                 Column(
                     modifier = Modifier
                         .fillMaxSize()
                         .padding(horizontal = 16.dp)
                 ) {
-                    // Category filter
+                    // Category filter - Always show this section
                     if (state.categories.isNotEmpty()) {
                         CategoryFilterSection(
                             categories = state.categories,
@@ -128,23 +124,34 @@ fun ExpenseListScreen(
                         Spacer(modifier = Modifier.height(16.dp))
                     }
 
-                    ExpenseSummaryCard(
-                        expenses = state.expenses,
-                        selectedCategory = state.selectedCategory,
-                        modifier = Modifier.fillMaxWidth()
-                    )
+                    if (state.expenses.isEmpty() && state.selectedCategory == null) {
 
-                    Spacer(modifier = Modifier.height(16.dp))
+                        EmptyExpenseListState()
+                    } else {
 
-                    ExpenseList(
-                        expenses = state.expenses,
-                        onEditExpense = { expenseId ->
-                            onNavigateToEditExpense(expenseId)
-                        },
-                        onDeleteExpense = { expense ->
-                            viewModel.onEvent(ExpenseListEvent.DeleteExpense(expense))
+                        ExpenseSummaryCard(
+                            expenses = state.expenses,
+                            selectedCategory = state.selectedCategory,
+                            modifier = Modifier.fillMaxWidth()
+                        )
+
+                        Spacer(modifier = Modifier.height(16.dp))
+
+                        if (state.expenses.isEmpty() && state.selectedCategory != null) {
+                            FilteredEmptyState(
+                                selectedCategory = state.selectedCategory,
+                                modifier = Modifier.weight(1f)
+                            )
+                        } else {
+                            ExpenseList(
+                                expenses = state.expenses,
+                                onEditExpense = onNavigateToEditExpense,
+                                onDeleteExpense = { expense ->
+                                    viewModel.onEvent(ExpenseListEvent.DeleteExpense(expense))
+                                }
+                            )
                         }
-                    )
+                    }
                 }
             }
         }
@@ -185,6 +192,48 @@ private fun EmptyExpenseListState() {
 
         Text(
             text = "Tap the '+' button to add your first expense and start tracking.",
+            style = MaterialTheme.typography.bodyLarge,
+            textAlign = TextAlign.Center,
+            color = MaterialTheme.colorScheme.onSurfaceVariant
+        )
+    }
+}
+
+@Composable
+private fun FilteredEmptyState(
+    selectedCategory: String?,
+    modifier: Modifier = Modifier
+) {
+    val displayCategory = selectedCategory ?: "selected"
+    
+    Column(
+        modifier = modifier
+            .fillMaxWidth()
+            .padding(32.dp),
+        horizontalAlignment = Alignment.CenterHorizontally,
+        verticalArrangement = Arrangement.Center
+    ) {
+        Icon(
+            imageVector = Icons.Outlined.Receipt,
+            contentDescription = "No expenses icon",
+            modifier = Modifier.size(100.dp),
+            tint = MaterialTheme.colorScheme.primary.copy(alpha = 0.6f)
+        )
+
+        Spacer(modifier = Modifier.height(16.dp))
+
+        Text(
+            text = "No expenses in $displayCategory category",
+            style = MaterialTheme.typography.titleMedium,
+            fontWeight = FontWeight.Bold,
+            textAlign = TextAlign.Center,
+            color = MaterialTheme.colorScheme.onSurface
+        )
+
+        Spacer(modifier = Modifier.height(8.dp))
+
+        Text(
+            text = "Try selecting a different category or add a new expense",
             style = MaterialTheme.typography.bodyLarge,
             textAlign = TextAlign.Center,
             color = MaterialTheme.colorScheme.onSurfaceVariant
