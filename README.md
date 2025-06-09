@@ -1,9 +1,26 @@
 # Expense Tracker
 
+<p align="center">
+  <img src="assets/app_logo.png" alt="Expense Tracker Logo" width="200"/>
+</p>
+
 A modern Android expense tracking application built with Jetpack Compose and Material Design 3, following clean architecture principles and best practices.
 
+## Screenshots 📱
 
+<p align="center">
+  <img src="assets/screenshot1.jpg" alt="Home Screen" width="250"/>
+  &nbsp;&nbsp;&nbsp;&nbsp;
+  <img src="assets/screenshot2.jpg" alt="Add Expense Screen" width="250"/>
+  &nbsp;&nbsp;&nbsp;&nbsp;
+  <img src="assets/screenshot3.jpg" alt="Analytics Screen" width="250"/>
+</p>
 
+<p align="center">
+  <img src="assets/screenshot4.jpg" alt="Categories Screen" width="250"/>
+  &nbsp;&nbsp;&nbsp;&nbsp;
+  <img src="assets/screenshot5.jpg" alt="Settings Screen" width="250"/>
+</p>
 
 ## Features 🚀
 
