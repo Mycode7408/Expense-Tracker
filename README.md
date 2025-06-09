@@ -1,8 +1,6 @@
 # Expense Tracker
 
-<p align="center">
-  <img src="assets/app_logo.png" alt="Expense Tracker Logo" width="200"/>
-</p>
+
 
 A modern Android expense tracking application built with Jetpack Compose and Material Design 3, following clean architecture principles and best practices.
 
